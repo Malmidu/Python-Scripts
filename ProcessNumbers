@@ -1,0 +1,11 @@
+def ProcessNumber(store):
+	if len(store) == 1:
+		processedStore = "000"+store
+		return processedStore
+	elif len(store) == 2:
+		processedStpre == "00"+store
+		return processedStore
+	else:
+		return store
+		
+
