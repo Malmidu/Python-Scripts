@@ -1,3 +1,4 @@
+
 class Monster:
 	
 	def __init__(self, HP, MP, Atk, Def, Int, Gold, XP):
@@ -12,7 +13,7 @@ class Monster:
 		self.XP = XP
 		
 	def Turn(self, target):
-		if (self.currentHP/self.HP * 100) > 50:
+		if (self.currentHP/self.HP * 100) < 50:
 			self.Heal()
 		else:
 			self.Attack(target)
@@ -95,6 +96,8 @@ class Player:
  	 def Fire(self, target):
  	 	if self.currentMP < 4:
  	 		print "The spell fizzles as you do not have enough power to cast it\n"
+			input()
+			
  	 	else:
  	 		fireDam = self.Int * 2
  	 		print "You cast a fireball at the monster dealing "+str(fireDam)+" damage to it\n"
@@ -106,7 +109,8 @@ class Player:
  	 		print "The spell fizzles as you do not have enough power to cast it\n"		
 		else:
  	 		iceDam = self.Int
- 	 		print "You cast a spear of ice at the target dealing "+str(iceDam)+" damage to it\n"			
+ 	 		print "You cast a spear of ice at the target dealing "+str(iceDam)+" damage to it\n"
+			
 			target.currentHP -= iceDam
  	 		self.currentMP -= 2
  	 		
@@ -117,6 +121,8 @@ class Player:
  	 	else:
  	 		print "You cast a healing glow restoring 5 health to yourself\n"
  	 		self.currentHP += 5
+			if self.currentHP > self.HP:
+				self.currentHP = self.HP
  
 def printBattle(Player, Monster):
 	print """---------------------------
