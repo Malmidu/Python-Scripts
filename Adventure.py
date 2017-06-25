@@ -1,4 +1,5 @@
 
+
 class Monster:
 	
 	def __init__(self, HP, MP, Atk, Def, Int, Gold, XP):
@@ -108,7 +109,8 @@ class Player:
  	 		return False
  	 def Ice(self, target):
  	 	if self.currentMP < 2:
- 	 		print "The spell fizzles as you do not have enough power to cast it\n"			return True
+ 	 		print "The spell fizzles as you do not have enough power to cast it\n"			
+			return True
 		else:
  	 		iceDam = self.Int
  	 		print "You cast a spear of ice at the target dealing "+str(iceDam)+" damage to it\n"
@@ -125,6 +127,7 @@ class Player:
  	 		self.currentHP += 5
 			if self.currentHP > self.HP:
 				self.currentHP = self.HP
+			self.currentMP -= 3
  			return False
 class Item:
 
@@ -136,10 +139,10 @@ class Item:
 
 	def itemUse(self, User):
 		##This will determine what the item does when used from the inventory
-
+		return
 	def battleUse(self, User, Target):
 		##This is for items when used in battle
-
+		return
 
 def printBattle(Player, Monster):
 	print """---------------------------
