@@ -46,7 +46,8 @@ class Player:
  	 	self.XP = XP
  	 	self.Level = Level
  	 	self.spellList = ["[F]ire", "[I]ce", "[H]eal"]
- 	 	
+ 	 	self.Inventory = {}
+		
  	 def CheckXP(self):
  	 	if XP == 100:
  	 		self.LevelUp()
@@ -71,9 +72,9 @@ class Player:
  	 	print "How would you like to act?\n"
  	 	choice = raw_input("[A]ttack  [C]ast\n")
  	 	if choice.lower() == "a":
- 	 		self.Attack(target)
+ 	 		return self.Attack(target)
  	 	elif choice.lower() == "c":
- 	 		self.Cast(target)
+ 	 		return self.Cast(target)
  	 		
  	 			 
  	 def Attack(self, target):
@@ -82,48 +83,64 @@ class Player:
  	 		totalAtk = 0
  	 	print "You do "+str(totalAtk)+" Damage to the monster\n"		
 		target.currentHP -= totalAtk
- 	 		 
+ 	 	return False
+	 
  	 def Cast(self, target):
  	 	print "What do you want to cast?\n"
  	 	choice = raw_input(self.spellList)
  	 	if choice.lower() == "f":
- 	 		self.Fire(target)
+ 	 		return self.Fire(target)
  	 	elif choice.lower() == "i":
- 	 		self.Ice(target)
+ 	 		return self.Ice(target)
  	 	elif choice.lower() == "h":
- 	 		self.Heal()
+ 	 		return self.Heal()
  	 
  	 def Fire(self, target):
  	 	if self.currentMP < 4:
  	 		print "The spell fizzles as you do not have enough power to cast it\n"
-			input()
+			return True
 			
  	 	else:
  	 		fireDam = self.Int * 2
  	 		print "You cast a fireball at the monster dealing "+str(fireDam)+" damage to it\n"
  	 		target.currentHP -= fireDam
  	 		self.currentMP -= 4
- 	 
+ 	 		return False
  	 def Ice(self, target):
  	 	if self.currentMP < 2:
- 	 		print "The spell fizzles as you do not have enough power to cast it\n"		
+ 	 		print "The spell fizzles as you do not have enough power to cast it\n"			return True
 		else:
  	 		iceDam = self.Int
  	 		print "You cast a spear of ice at the target dealing "+str(iceDam)+" damage to it\n"
 			
 			target.currentHP -= iceDam
  	 		self.currentMP -= 2
- 	 		
+ 	 		return False
  	 def Heal(self):
  	 	if self.currentMP < 3:
  	 		print "The spell fizzles as you do not have enough power to cast it\n"
- 	 		
+ 	 		return True
  	 	else:
  	 		print "You cast a healing glow restoring 5 health to yourself\n"
  	 		self.currentHP += 5
 			if self.currentHP > self.HP:
 				self.currentHP = self.HP
- 
+ 			return False
+class Item:
+
+	def __init__(self, Name, Cost):
+		
+		self.Name = Name
+		self.Cost = Cost
+
+
+	def itemUse(self, User):
+		##This will determine what the item does when used from the inventory
+
+	def battleUse(self, User, Target):
+		##This is for items when used in battle
+
+
 def printBattle(Player, Monster):
 	print """---------------------------
 |Monster : HP = %d MP = %d| 
@@ -138,9 +155,13 @@ def printBattle(Player, Monster):
 def battleLoop(Player, Monster):
 	print "A Monster has attacked!!\n"
 	gameLoop = True
+
 	printBattle(Player, Monster)
 	while gameLoop == True:
-		Player.Turn(Monster)
+		playerTurn = True
+		while playerTurn == True:
+
+			playerTurn = Player.Turn(Monster)
 		if Monster.currentHP > 0:
 		
 			Monster.Turn(Player) 	
