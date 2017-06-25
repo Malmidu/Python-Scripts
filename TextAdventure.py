@@ -144,4 +144,9 @@ def battleLoop(Player, Monster):
 		printBattle(Player, Monster)
 
 def main():
-	Player = 
+	Player = Player(50, 30, 10, 5, 10, 0, 0, 1)
+	Monster = Monster(50, 30, 5, 5, 5, 0, 0)
+	battleLoop(Player, Monster)
+	
+if __name__ == "__main__":
+	main()
